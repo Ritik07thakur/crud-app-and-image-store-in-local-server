@@ -9,6 +9,11 @@ const userSchema = new mongoose.Schema({
     type:String,
     required:true,
   },
+  password:{
+    type:String,
+    require:true,
+
+  },
   image:{
     type:String,
     default:"https://www.w3schools.com/howto/img_avatar.png"
