@@ -5,7 +5,7 @@ export default function UserList() {
   const [editingUser, setEditingUser] = useState(null);
   const [formData, setFormData] = useState({ name: "", email: "", image: "" });
 
-  // Fetch all users 
+  // Fetch all users
   const fetchUsers = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/user/get");
@@ -22,7 +22,7 @@ export default function UserList() {
     fetchUsers();
   }, []);
 
-  // handle delete user 
+  // handle delete user
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
@@ -45,52 +45,51 @@ export default function UserList() {
   };
 
   // Handle update input changes
- const handleChange = (e) => {
-  const { name, value, files } = e.target;
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
 
-  if (name === "image") {
-    setFormData((prev) => ({ ...prev, image: files[0] }));
-  } else {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }
-};
-
-const handleUpdate = async (e) => {
-  e.preventDefault();
-  // e.target.preventDefault();
-  const {name, email, image} = formData;
-  
-  
-
-  const formDataToSend = new FormData();
-  formDataToSend.append("name", name);
-  formDataToSend.append("email", email);
-
-
-  if (formData.image instanceof File) {
-    formDataToSend.append("image", image);
-  }
-
-  try {
-    const res = await fetch(
-      `http://localhost:5000/api/user/update/${editingUser._id}`,
-      {
-        method: "PUT",
-        body: formDataToSend, // no headers here, browser sets them automatically
-      }
-    );
-
-    if (res.ok) {
-      alert("User updated");
-      setEditingUser(null);
-      fetchUsers();
+    if (name === "image") {
+      setFormData((prev) => ({ ...prev, image: files[0] }));
     } else {
-      console.error("Update failed:", await res.json());
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
-  } catch (err) {
-    console.error("Update error:", err);
-  }
-};
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    // e.target.preventDefault();
+    const { name, email, image } = formData;
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", name);
+    formDataToSend.append("email", email);
+
+    if (formData.image instanceof File) {
+      formDataToSend.append("image", image);
+    }
+    
+
+    try {
+      
+      const res = await fetch(
+        `http://localhost:5000/api/user/update/${editingUser._id}`,
+        {
+          method: "PUT",
+          body: formDataToSend, // no headers here, browser sets them automatically
+        }
+      );
+
+      if (res.ok) {
+        alert("User updated");
+        setEditingUser(null);
+        fetchUsers();
+      } else {
+        console.error("Update failed:", await res.json());
+      }
+    } catch (err) {
+      console.error("Update error:", err);
+    }
+  };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -112,13 +111,13 @@ const handleUpdate = async (e) => {
             {users.length === 0 ? (
               <tr>
                 <td colSpan="4" className="text-center py-4">
-                  No users found 
+                  No users found
                 </td>
               </tr>
             ) : (
               users.map((user) => (
                 <tr key={user._id} className="border-b hover:bg-gray-50">
-                   <td className="py-3 px-4">
+                  <td className="py-3 px-4">
                     <img
                       src={user.image}
                       alt="User"
@@ -127,7 +126,7 @@ const handleUpdate = async (e) => {
                   </td>
                   <td className="py-3 px-4">{user.name}</td>
                   <td className="py-3 px-4">{user.email}</td>
-                 
+
                   <td className="py-3 px-4 space-x-2">
                     <button
                       onClick={() => openEditModal(user)}
@@ -202,13 +201,13 @@ const handleUpdate = async (e) => {
                 >
                   Image URL
                 </label>
-              <input
-  id="image"
-  type="file"
-  name="image"
-  onChange={handleChange}
-  className="w-full border px-3 py-2 rounded focus:outline-none focus:ring"
-/>
+                <input
+                  id="image"
+                  type="file"
+                  name="image"
+                  onChange={handleChange}
+                  className="w-full border px-3 py-2 rounded focus:outline-none focus:ring"
+                />
               </div>
               <button
                 type="submit"
@@ -220,7 +219,6 @@ const handleUpdate = async (e) => {
           </div>
         </div>
       )}
-   
     </div>
   );
 }
