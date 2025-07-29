@@ -6,16 +6,20 @@ import UserList from "./component/UserList";
 
 import ImageUpload from "./component/ImageUpload";
 import LoginForm from "./component/LoginForm";
+import Forget from "./component/Forget";
+import Newpassword from "./component/Newpassword";
 // import { useNavigate } from 'react-router-dom'
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Form />} />
+        <Route path="/signup" element={<Form />} />
         {/* <Route path="/img" element={<ImageUpload />} /> */}
         <Route path="/userlist" element={<UserList />} />
-        <Route path="/login" element={<LoginForm/>}/>
+        <Route path="/" element={<LoginForm/>}/>
+        <Route path="/confirm" element={<Newpassword/>}/>
+        <Route path='forget' element={<Forget/>}/>
       </Routes>
     </Router>
   );

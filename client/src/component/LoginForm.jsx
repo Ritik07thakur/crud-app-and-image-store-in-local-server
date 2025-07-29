@@ -43,6 +43,11 @@ const LoginForm = () => {
     }
   };
 
+ 
+
+
+  
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
@@ -84,7 +89,18 @@ const LoginForm = () => {
           >
             Login
           </button>
+           <button
+          onClick={() => navigate('/signup')}
+          type="button"
+          className="text-purple-700"
+        >
+        <u> click here</u> 
+        </button>
+        
+        <> to create new account</>
         </form>
+
+        <b className="text-blue-400 cursor-pointer" onClick={()=>navigate("/forget")}>forget password</b>
       </div>
     </div>
   );

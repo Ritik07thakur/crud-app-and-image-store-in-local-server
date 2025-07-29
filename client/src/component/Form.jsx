@@ -134,10 +134,8 @@ export default function Form() {
           Submit
         </button>
 
-        
-
         <button
-          onClick={() => navigate('/login')}
+          onClick={() => navigate('/')}
           type="button"
           className="text-purple-700"
         >

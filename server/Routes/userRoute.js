@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {createUser, getUser, deleteUser, updateUser, login } = require('../Controllers/userController');
+const {createUser, getUser, deleteUser, updateUser, login , forgetPassword } = require('../Controllers/userController');
 const upload = require('../Config/multerConfig');
 // create user route 
 // router.post('/create', upload.single('image'), createUser);
@@ -10,6 +10,8 @@ router.get('/get', getUser);
 router.delete('/delete/:id', deleteUser);
 // update user route
 router.put("/update/:id", upload.single("image"), updateUser);
+
+router.put("/forgetPassword" , forgetPassword)
 
 // login api
 

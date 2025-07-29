@@ -228,3 +228,41 @@ exports.updateUser = async (req, res) => {
     });
   }
 };
+
+exports.forgetPassword = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Check if both fields are provided
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Both email and password fields are required",
+        status: "error"
+      });
+    }
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({
+        message: "Email does not exist",
+        status: "error"
+      });
+    }
+
+    // Update password
+    user.password = password; 
+    await user.save();
+
+    return res.status(200).json({
+      message: "Password updated successfully",
+      status: "success"
+    });
+  } catch (err) {
+    console.error("Forget Password Error:", err);
+    return res.status(500).json({
+      message: "Internal server error",
+      status: "error"
+    });
+  }
+};
